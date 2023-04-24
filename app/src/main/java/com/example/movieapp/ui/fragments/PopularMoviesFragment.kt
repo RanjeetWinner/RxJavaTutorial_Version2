@@ -18,9 +18,11 @@ import com.example.movieapp.data.repository.PopularMoviesPagedListRepository
 import com.example.movieapp.databinding.FragmentPopularMoviesBinding
 import com.example.movieapp.ui.adapters.MoviePageListAdapter
 import com.example.movieapp.viewmodel.PopularMoviesViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
-class PopularMoviesFragment : Fragment(),MyInterface {
+@AndroidEntryPoint
+class PopularMoviesFragment ( ) : Fragment(),MyInterface {
     lateinit var binding: FragmentPopularMoviesBinding
     lateinit var popularmoviesViewModel: PopularMoviesViewModel
     lateinit var movieRepository: PopularMoviesPagedListRepository
@@ -73,8 +75,8 @@ class PopularMoviesFragment : Fragment(),MyInterface {
     }
 
     private fun setup() {
-        val apiService= ApiClient.getClient()
-        movieRepository= PopularMoviesPagedListRepository(apiService)
+//        val apiService= ApiClient.getClient()
+//        movieRepository= PopularMoviesPagedListRepository(apiService)
         popularmoviesViewModel=getViewModel()
     }
 
@@ -84,13 +86,14 @@ class PopularMoviesFragment : Fragment(),MyInterface {
         return binding.root
     }
 
-    private fun getViewModel() : PopularMoviesViewModel {
+    private fun getViewModel() : PopularMoviesViewModel {/*
         return ViewModelProvider(this,object : ViewModelProvider.Factory{
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
                 return PopularMoviesViewModel(movieRepository) as T
             }
-        })[PopularMoviesViewModel::class.java]
+        })[PopularMoviesViewModel::class.java]*/
+        return ViewModelProvider(this).get(PopularMoviesViewModel::class.java)
     }
 
     override fun onClick(moviId:Int) {

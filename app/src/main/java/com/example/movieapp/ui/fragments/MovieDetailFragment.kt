@@ -17,14 +17,17 @@ import com.example.movieapp.data.network.api.POSTER_BASE_URL
 import com.example.movieapp.data.repository.SingleMovieRepository
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
 import com.example.movieapp.viewmodel.MovieDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import java.util.Locale
+import javax.inject.Inject
 
 
-class MovieDetailFragment : Fragment() {
+@AndroidEntryPoint
+class MovieDetailFragment () : Fragment() {
     lateinit var binding: FragmentMovieDetailBinding
-    private lateinit var movieDetailViewModel: MovieDetailViewModel
-    private lateinit var singleMovieRepository: SingleMovieRepository
+    lateinit var movieDetailViewModel: MovieDetailViewModel
+    //private lateinit var singleMovieRepository: SingleMovieRepository
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,10 +77,11 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setup(movieId: Int?) {
-        val apiService: ApiService = ApiClient.getClient()
-        singleMovieRepository= SingleMovieRepository(apiService)
+//        val apiService: ApiService = ApiClient.getClient()
+//        singleMovieRepository= SingleMovieRepository(apiService)
 
-        movieDetailViewModel=getViewModel(movieId!!)
+        movieDetailViewModel=getViewModel()
+        //setup(movieId)
     }
 
     private fun setContentView(inflater: LayoutInflater, container: ViewGroup?):View{
@@ -85,13 +89,14 @@ class MovieDetailFragment : Fragment() {
         return binding.root
     }
 
-    private fun getViewModel(movieId: Int): MovieDetailViewModel {
-        return ViewModelProvider(this,object : ViewModelProvider.Factory{
+    private fun getViewModel(): MovieDetailViewModel {
+        /*return ViewModelProvider(this,object : ViewModelProvider.Factory{
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return MovieDetailViewModel(singleMovieRepository,movieId) as T
+                return MovieDetailViewModel(singleMovieRepository) as T
             }
-        })[MovieDetailViewModel::class.java]
+        })[MovieDetailViewModel::class.java]*/
+        return ViewModelProvider(this).get(MovieDetailViewModel::class.java)
     }
 
 }

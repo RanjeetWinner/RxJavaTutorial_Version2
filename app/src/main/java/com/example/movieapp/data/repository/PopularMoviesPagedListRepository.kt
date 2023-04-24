@@ -11,8 +11,9 @@ import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.network.NetworkState
 import com.example.movieapp.data.repository.datasource.MovieDataSourceFactory
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class PopularMoviesPagedListRepository(private val apiService: ApiService) {
+class PopularMoviesPagedListRepository @Inject constructor(private val apiService: ApiService) {
 
     lateinit var moviesPagedList : LiveData<PagedList<Movie>>
     lateinit var movieDataSourceFactory: MovieDataSourceFactory

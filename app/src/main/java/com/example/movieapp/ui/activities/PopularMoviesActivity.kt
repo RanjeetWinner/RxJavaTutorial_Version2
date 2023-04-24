@@ -20,7 +20,10 @@ import com.example.movieapp.viewmodel.PopularMoviesViewModel
 import com.example.movieapp.data.repository.PopularMoviesPagedListRepository
 import com.example.movieapp.databinding.ActivityMoviesPopularBinding
 import com.google.android.material.elevation.SurfaceColors
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class PopularMoviesActivity : AppCompatActivity() {
     lateinit var binding: ActivityMoviesPopularBinding
     private lateinit var navController: NavController
@@ -39,7 +42,7 @@ class PopularMoviesActivity : AppCompatActivity() {
     private fun setToolbar() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(R.id.popularMoviesFragment),
             fallbackOnNavigateUpListener = ::onSupportNavigateUp

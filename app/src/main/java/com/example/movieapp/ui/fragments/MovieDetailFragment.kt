@@ -39,7 +39,7 @@ class MovieDetailFragment () : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bundle = arguments
-        val movieId = bundle?.getInt("id")
+        val movieId = bundle?.getInt("id")?:1
         //val movieId:Int?=activity?.intent?.getIntExtra("id",1)
         setup(movieId)
         setupObservers()
@@ -76,12 +76,12 @@ class MovieDetailFragment () : Fragment() {
         // movie_title.text=movieDetails.title
     }
 
-    private fun setup(movieId: Int?) {
+    private fun setup(movieId: Int) {
 //        val apiService: ApiService = ApiClient.getClient()
 //        singleMovieRepository= SingleMovieRepository(apiService)
 
         movieDetailViewModel=getViewModel()
-        //setup(movieId)
+        movieDetailViewModel.setMovieId(movieId)
     }
 
     private fun setContentView(inflater: LayoutInflater, container: ViewGroup?):View{
